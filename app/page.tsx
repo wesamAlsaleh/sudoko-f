@@ -15,7 +15,7 @@ export default function Home() {
       {/* TODO: Status Bar */}
       <StatsBar />
 
-      {/* TODO: Board Card */}
+      {/* Board Card */}
       <BoardCard />
 
       {/* TODO: Controls */}

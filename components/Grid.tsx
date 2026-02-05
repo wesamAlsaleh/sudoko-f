@@ -13,7 +13,7 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
       {/* grid contents container */}
       <div className="grid grid-cols-9 border-2 border-zinc-900 w-fit">
         {cellNumbers.map((cellNumber, index) => {
-          return <Cell key={index} number={cellNumber} />;
+          return <Cell key={index} number={cellNumber} cellId={index} />;
         })}
       </div>
     </div>
