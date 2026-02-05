@@ -18,7 +18,7 @@ export default function BoardCard() {
   return (
     // Card container
     <div className="flex justify-center items-center h-96">
-      <Card className="w-[50%] h-full">
+      <Card className="p-4">
         <Grid puzzleString={cellNumbers} />
       </Card>
     </div>
