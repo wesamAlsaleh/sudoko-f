@@ -8,7 +8,7 @@ import Title from "@/components/Title";
 export default function Home() {
   return (
     // Container
-    <div className="flex flex-col min-h-screen bg-zinc-50 font-sans">
+    <div className="flex flex-col min-h-screen bg-zinc-50 font-sans w-full">
       {/* Title */}
       <Title />
 
