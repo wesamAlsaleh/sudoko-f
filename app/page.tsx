@@ -1,4 +1,4 @@
-import Board from "@/components/Board";
+import Board from "@/components/Grid";
 import BoardCard from "@/components/BoardCard";
 import Controls from "@/components/Controls";
 import NumbersPad from "@/components/NumbersPad";

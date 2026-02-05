@@ -1,10 +1,10 @@
 import React from "react";
-import Board from "./Board";
+import Grid from "./Grid";
 
 export default function BoardCard() {
   return (
     <div>
-      <Board />
+      <Grid />
     </div>
   );
 }
