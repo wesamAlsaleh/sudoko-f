@@ -10,12 +10,12 @@ export default function Cell({
   cellId: number;
 }) {
   // get the cell coordinates
-  const row = Math.floor(cellId / 9);
-  const column = cellId % 9;
+  const row = Math.floor(cellId / 9); // get the row index (0 -> 8)
+  const column = cellId % 9; // get the column index (0 -> 8)
 
   // custom border style based on the location (after each 3 cells)
-  const rowStyle = row % 3 == 0 && row != 0 ? "border-t-4" : "";
-  const columnStyle = column % 3 == 0 && column != 0 ? "border-l-4" : "";
+  const rowStyle = row % 3 == 0 && row != 0 ? "border-t-4" : ""; // add the divider in the rows that are dividable by 3 and not the first row
+  const columnStyle = column % 3 == 0 && column != 0 ? "border-l-4" : ""; // add the divider in the columns that are dividable by 3 and not the first column
 
   return (
     <div
