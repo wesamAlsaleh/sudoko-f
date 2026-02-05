@@ -1,9 +1,18 @@
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <h1 className="text-4xl font-bold">Welcome to Sudoku</h1>
-      </main>
+    // Container
+    <div className="flex flex-col min-h-screen bg-red-400 font-sans">
+      {/* Title */}
+      <h1 className="text-4xl font-bold text-red-300">Sudoko</h1>
+
+      {/* TODO: Timer & Counter */}
+      <h1 className="text-2xl font-bold underline">Hello world!</h1>
+
+      {/* TODO: Board Card */}
+
+      {/* TODO: Controls */}
+
+      {/* TODO: Numbers pad */}
     </div>
   );
 }
