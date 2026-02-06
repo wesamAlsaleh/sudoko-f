@@ -16,7 +16,7 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
     // grid position container
     <div className="flex justify-center items-center">
       {/* grid contents container */}
-      <div className="grid grid-cols-9 border-2 border-zinc-900 w-fit">
+      <div className="grid grid-cols-9 border-2 border-zinc-900 w-fit rounded-2xl">
         {cellNumbers.map((cellNumber, index) => {
           return (
             <Cell
