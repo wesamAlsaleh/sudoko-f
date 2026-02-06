@@ -12,17 +12,14 @@ export default function Home() {
       {/* Title */}
       <Title />
 
-      {/* TODO: Status Bar */}
+      {/* TODO: Status Bar (Timer & Mistakes Counter) */}
       <StatsBar />
 
-      {/* Board Card */}
+      {/* Board Card & Numbers Pad */}
       <BoardCard />
 
-      {/* TODO: Controls */}
+      {/* TODO: Controls (New Game & Submit) */}
       <Controls />
-
-      {/* TODO: Numbers pad */}
-      <NumbersPad />
     </div>
   );
 }
