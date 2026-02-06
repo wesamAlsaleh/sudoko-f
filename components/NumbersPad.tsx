@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { Eraser } from "lucide-react";
 
 export default function NumbersPad({
   onNumberClick,
@@ -31,7 +32,7 @@ export default function NumbersPad({
         className=""
         onClick={() => onClear()}
       >
-        E
+        <Eraser />
       </Button>
     </div>
   );
