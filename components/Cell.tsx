@@ -8,7 +8,7 @@ export default function Cell({
   selectedIndex,
   setSelectedIndex,
 }: {
-  number: string;
+  number: number;
   cellId: number;
   selectedIndex: number | null;
   setSelectedIndex: () => void;
@@ -96,8 +96,9 @@ export default function Cell({
         // update selected index state for the UI
         setSelectedIndex();
       }}
+      onChange={(event) => {}}
     >
-      {number === "0" ? "" : number}
+      {number === 0 ? "" : number}
       {/* {`${row}${column}`} */}
     </div>
   );
