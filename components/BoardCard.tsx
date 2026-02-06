@@ -1,10 +1,26 @@
 import React from "react";
-import Board from "./Board";
+import Grid from "./Grid";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function BoardCard() {
+  // puzzle string
+  const cellNumbers =
+    "012000709005709020080000300104257600007498510500010204803901000050000030970500060";
+
   return (
-    <div>
-      <Board />
+    // Card container
+    <div className="flex justify-center items-center mb-4">
+      <Card className="p-4">
+        <Grid puzzleString={cellNumbers} />
+      </Card>
     </div>
   );
 }
