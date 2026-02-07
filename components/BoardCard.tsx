@@ -33,19 +33,25 @@ export default function BoardCard({ uuid }: { uuid: string | undefined }) {
       const localUUID = localStorage.getItem("gid");
       const localPuzzleString = localStorage.getItem("ps");
 
-      // if the url contain an id, fetch from the server (e.g., someone shared a link)
+      // if the url contain a uuid
       if (uuid) {
-        // if the uuid in the url is different from the one in the storage OR there is no game in the storage fetch the new game
-        if (uuid !== localUUID || !localUUID) {
-          await fetchGameFromServer(uuid); // only fetch if it's different from what we already have in state
+        // if there is a uuid in the localstorage and in the url but there are different, fetch using the uuid in the localstorage
+        if (localUUID && uuid !== localUUID) {
+          await fetchGameFromServer(localUUID);
         }
-        // else set the game from the localstorage
+        // else if there is a uuid in the url but not in the localstorage, fetch using the uuid in the parameter
+        else if (!localUUID) {
+          await fetchGameFromServer(uuid);
+        }
+        // else set the game from the localstorage (no need to fetch from the server)
         else {
           // set the puzzle state
           setPuzzleString(localPuzzleString);
           // update UI state
           setLoading(false);
         }
+
+        // do nothing
         return;
       }
 
@@ -59,6 +65,8 @@ export default function BoardCard({ uuid }: { uuid: string | undefined }) {
 
         // update UI state
         setLoading(false);
+
+        // do nothing
         return;
       }
 
@@ -85,7 +93,11 @@ export default function BoardCard({ uuid }: { uuid: string | undefined }) {
         localStorage.setItem("gid", data.gameId);
         localStorage.setItem("ps", data.puzzleString);
         localStorage.setItem("d", data.difficulty);
-      } catch (error) {
+      } catch (error: any) {
+        // handle 404 errors
+        if (error.response.status === 404) {
+          console.warn("Game not found, resetting...");
+        }
         // log the error
         console.error("Fetch failed:", error);
 
