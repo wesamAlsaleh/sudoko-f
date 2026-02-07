@@ -3,10 +3,12 @@
 import React, { useState } from "react";
 import Cell from "./Cell";
 import NumbersPad from "./NumbersPad";
+import { SudokuSolver } from "@/lib/sudokuSolver";
 
 export default function Grid({ puzzleString }: { puzzleString: string }) {
-  // state to manage the selected cell (primarily for cell highlighting)
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  // states to manage
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null); //  the selected cell (primarily for cell highlighting)
+  const [inputStatus, setInputStatus] = useState<boolean | null>(null); // instant feedback to the player
 
   // convert the puzzle string (81-char) into an array of number
   const initialCellsArray = puzzleString
@@ -30,16 +32,29 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
       return;
     }
 
+    // solver instance
+    const sudokuSolver = new SudokuSolver();
+
     // update the cells array
     setCells((prev) => {
       // create a copy of the previous array to maintain immutability
       const cellsClone = [...prev];
 
-      // update the specific index with the new digit
-      // TODO: check if its valid input (not duplicated)
+      // validate the input
+      const isValid = sudokuSolver.checkFlatPlacement(
+        cellsClone,
+        selectedIndex,
+        value,
+      );
+
+      // update the UI with the status
+      setInputStatus(isValid);
+
+      // update the array with the specific index with the new value
       cellsClone[selectedIndex] = value;
 
       // TODO: store the array in the localstorage
+      localStorage.setItem("us", JSON.stringify(cellsClone));
 
       // return the new array to trigger a re-render of the board
       return cellsClone;
@@ -62,6 +77,9 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
       // create a copy of the previous array to maintain immutability
       const cellsClone = [...prev];
 
+      // clean the UI
+      setInputStatus(null);
+
       // update the specific index with 0
       cellsClone[selectedIndex] = 0;
 
@@ -82,6 +100,7 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
               cellId={index} //the cell index
               selectedIndex={selectedIndex} // current selected index
               setSelectedIndex={() => setSelectedIndex(index)} // on click set the selected index
+              inputStatus={selectedIndex === index ? inputStatus : null} // pass the inputStatus to the cell that is currently selected
             />
           );
         })}

@@ -7,11 +7,13 @@ export default function Cell({
   cellId,
   selectedIndex,
   setSelectedIndex,
+  inputStatus,
 }: {
   number: number;
   cellId: number;
   selectedIndex: number | null;
   setSelectedIndex: () => void;
+  inputStatus: boolean | null;
 }) {
   // get the cell coordinates
   const row = Math.floor(cellId / 9); // get the row index (0 -> 8)
@@ -65,6 +67,9 @@ export default function Cell({
   const selectedCellColor = "bg-blue-300"; // primary color for the specific cell you clicked
   const highlightGroupColor = "bg-blue-100"; // lighter color for the related row, column, and 3x3 box
 
+  const validInputTextStyle = "text-emerald-600 transition-colors duration-300";
+  const notValidInputTextStyle = "text-rose-600 animate-shake"; // Add 'shake' to tailwind.config.js
+
   // function to highligh the selected cell
   const highlighSelectedCell = () => {
     // highlight the selected cell
@@ -82,13 +87,32 @@ export default function Cell({
     }
   };
 
+  // function to color the number in the cell based on the input status
+  const highlighCellValue = () => {
+    // if this cell isn't the one being interacted with, use default
+    if (inputStatus === null) return "text-zinc-800";
+
+    // if inputStatus is false (invalid placement)
+    if (inputStatus === false) {
+      return notValidInputTextStyle;
+    }
+
+    // if inputStatus is true (valid placement)
+    if (inputStatus === true) {
+      return validInputTextStyle;
+    }
+
+    // default color
+    return "text-zinc-800";
+  };
+
   return (
     <div
       className={`
         w-16 h-16
         flex items-center justify-center
         border border-zinc-200 ${roundedCellRadius(cellId)}
-        text-zinc-800 text-xl font-semibold 
+        text-xl font-semibold ${highlighCellValue()}
         cursor-pointer select-none hover:bg-blue-100/30
         ${rowBorderStyle} ${columnBorderStyle}
         ${highlighSelectedCell()} ${highlighSelectedCellRowAndColumnAndBox()}`}
@@ -96,7 +120,6 @@ export default function Cell({
         // update selected index state for the UI
         setSelectedIndex();
       }}
-      onChange={(event) => {}}
     >
       {number === 0 ? "" : number}
       {/* {`${row}${column}`} */}
