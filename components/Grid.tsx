@@ -18,6 +18,11 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
   // store the initial cells array as a reference to lock the original puzzle cells
   const [originalCells] = useState(initialCellsArray);
 
+  // store the input status of each cell
+  const [errors, setErrors] = useState<(boolean | null)[]>(
+    Array(81).fill(null),
+  );
+
   // set the cells to the initial cells
   const [cells, setCells] = useState<number[]>(initialCellsArray);
 
@@ -47,8 +52,18 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
         value,
       );
 
-      // update the UI with the status
+      // update the UI states with the status
       setInputStatus(isValid);
+      setErrors((prevErrors) => {
+        // clone the errors state
+        const newErrorsState = [...prevErrors];
+
+        // update the state of the updated cell
+        newErrorsState[selectedIndex] = isValid; // store true (green) or false (red)
+
+        // return the new array to trigger a re-render of the board
+        return newErrorsState;
+      });
 
       // update the array with the specific index with the new value
       cellsClone[selectedIndex] = value;
@@ -97,10 +112,11 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
             <Cell
               key={index} // unique ID
               number={cellNumber} // the puzzle number
-              cellId={index} //the cell index
+              cellId={index} // the cell index
               selectedIndex={selectedIndex} // current selected index
               setSelectedIndex={() => setSelectedIndex(index)} // on click set the selected index
-              inputStatus={selectedIndex === index ? inputStatus : null} // pass the inputStatus to the cell that is currently selected
+              isOriginalCell={originalCells[index] !== 0} // true if the cell was part of the original puzzle
+              inputStatus={errors[index]} // pass the inputStatus to the cell that is currently selected from the UI state
             />
           );
         })}
