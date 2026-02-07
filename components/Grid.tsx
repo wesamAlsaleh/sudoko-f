@@ -36,7 +36,10 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
       const cellsClone = [...prev];
 
       // update the specific index with the new digit
+      // TODO: check if its valid input (not duplicated)
       cellsClone[selectedIndex] = value;
+
+      // TODO: store the array in the localstorage
 
       // return the new array to trigger a re-render of the board
       return cellsClone;

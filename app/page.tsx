@@ -1,11 +1,18 @@
-import Board from "@/components/Grid";
+"use server";
+
 import BoardCard from "@/components/BoardCard";
 import Controls from "@/components/Controls";
-import NumbersPad from "@/components/NumbersPad";
 import StatsBar from "@/components/StatsBar";
 import Title from "@/components/Title";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ id?: string }>;
+}) {
+  // get the UUID of the game from the params
+  const { id } = await searchParams;
+
   return (
     // Container
     <div className="flex flex-col min-h-screen bg-zinc-50 font-sans w-full">
@@ -15,10 +22,10 @@ export default function Home() {
       {/* TODO: Status Bar (Timer & Mistakes Counter) */}
       <StatsBar />
 
-      {/* Board Card & Numbers Pad */}
-      <BoardCard />
+      {/* Board Card + Numbers Pad */}
+      <BoardCard uuid={id || undefined} />
 
-      {/* TODO: Controls (New Game & Submit) */}
+      {/* TODO: Controls (New Game & Hint) */}
       <Controls />
     </div>
   );
