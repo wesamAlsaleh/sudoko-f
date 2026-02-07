@@ -69,8 +69,8 @@ export default function Cell({
   const selectedCellColor = "bg-blue-200"; // primary color for the specific cell you clicked
   const highlightGroupColor = "bg-blue-50"; // lighter color for the related row, column, and 3x3 box
 
-  const validInputTextStyle = "text-blue-600 transition-colors duration-300";
-  const notValidInputTextStyle = "text-rose-600 animate-shake"; // Add 'shake' to tailwind.config.js
+  const validInputCellStyle = "text-green-600 bg-green-100 transition-colors";
+  const notValidInputCellStyle = "text-rose-600 bg-rose-100";
 
   // function to highligh the selected cell
   const highlighSelectedCell = () => {
@@ -96,12 +96,12 @@ export default function Cell({
 
     // if inputStatus is false (invalid placement)
     if (inputStatus === false) {
-      return notValidInputTextStyle;
+      return notValidInputCellStyle;
     }
 
     // if inputStatus is true (valid placement)
     if (inputStatus === true) {
-      return validInputTextStyle;
+      return validInputCellStyle;
     }
 
     // default color
