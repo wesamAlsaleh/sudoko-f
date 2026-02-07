@@ -9,8 +9,10 @@ export const gameService = {
   },
 
   // Create a new game
-  createNewGame: async () => {
-    const response = await api.post("/api/v1/sudoku");
+  createNewGame: async (difficulty: string) => {
+    const response = await api.post("/api/v1/sudoku", {
+      difficulty: difficulty,
+    });
     return response.data;
   },
 
