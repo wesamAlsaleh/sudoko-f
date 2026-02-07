@@ -94,6 +94,16 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
 
       // clean the UI
       setInputStatus(null);
+      setErrors((prevErrors) => {
+        // clone the errors state
+        const newErrorsState = [...prevErrors];
+
+        // update the state of the updated cell
+        newErrorsState[selectedIndex] = null; // store null
+
+        // return the new array to trigger a re-render of the board
+        return newErrorsState;
+      });
 
       // update the specific index with 0
       cellsClone[selectedIndex] = 0;
