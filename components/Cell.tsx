@@ -7,11 +7,15 @@ export default function Cell({
   cellId,
   selectedIndex,
   setSelectedIndex,
+  isOriginalCell,
+  inputStatus,
 }: {
   number: number;
   cellId: number;
   selectedIndex: number | null;
   setSelectedIndex: () => void;
+  isOriginalCell: boolean;
+  inputStatus: boolean | null;
 }) {
   // get the cell coordinates
   const row = Math.floor(cellId / 9); // get the row index (0 -> 8)
@@ -62,8 +66,11 @@ export default function Cell({
         Math.floor((selectedCellColumn as number) / 3); // true if this cell shares the same box as the selected cell
 
   // declare the highlight colors
-  const selectedCellColor = "bg-blue-300"; // primary color for the specific cell you clicked
-  const highlightGroupColor = "bg-blue-100"; // lighter color for the related row, column, and 3x3 box
+  const selectedCellColor = "bg-blue-200"; // primary color for the specific cell you clicked
+  const highlightGroupColor = "bg-blue-50"; // lighter color for the related row, column, and 3x3 box
+
+  const validInputCellStyle = "text-green-600 bg-green-100 transition-colors";
+  const notValidInputCellStyle = "text-rose-600 bg-rose-100";
 
   // function to highligh the selected cell
   const highlighSelectedCell = () => {
@@ -82,21 +89,39 @@ export default function Cell({
     }
   };
 
+  // function to color the number in the cell based on the input status
+  const highlighCellValue = () => {
+    // if this cell isn't the one being interacted with, use default
+    if (isOriginalCell === null) return "text-zinc-900 font-bold";
+
+    // if inputStatus is false (invalid placement)
+    if (inputStatus === false) {
+      return notValidInputCellStyle;
+    }
+
+    // if inputStatus is true (valid placement)
+    if (inputStatus === true) {
+      return validInputCellStyle;
+    }
+
+    // default color
+    return "text-zinc-800";
+  };
+
   return (
     <div
       className={`
         w-16 h-16
         flex items-center justify-center
         border border-zinc-200 ${roundedCellRadius(cellId)}
-        text-zinc-800 text-xl font-semibold 
-        cursor-pointer select-none hover:bg-blue-100/30
+        text-xl font-semibold ${highlighCellValue()}
+        cursor-pointer select-none hover:bg-blue-100
         ${rowBorderStyle} ${columnBorderStyle}
         ${highlighSelectedCell()} ${highlighSelectedCellRowAndColumnAndBox()}`}
       onClick={() => {
         // update selected index state for the UI
         setSelectedIndex();
       }}
-      onChange={(event) => {}}
     >
       {number === 0 ? "" : number}
       {/* {`${row}${column}`} */}
