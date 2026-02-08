@@ -32,8 +32,9 @@ export default function BoardCard({ uuid }: { uuid: string | undefined }) {
       // get the game data from the localstorage
       const localUUID = localStorage.getItem("gid");
       const localPuzzleString = localStorage.getItem("ps");
+      const localUserSolution = localStorage.getItem("us");
 
-      // if the url contain a uuid
+      // if the URL contain a uuid
       if (uuid) {
         // if there is a uuid in the localstorage and in the url but there are different, fetch using the uuid in the localstorage
         if (localUUID && uuid !== localUUID) {
@@ -45,6 +46,18 @@ export default function BoardCard({ uuid }: { uuid: string | undefined }) {
         }
         // else set the game from the localstorage (no need to fetch from the server)
         else {
+          // if the user has a saved game
+          // if (localUserSolution && localPuzzleString) {
+          //   // set the puzzle states
+          //   setPuzzleString(localPuzzleString);
+
+          //   // update UI state
+          //   setLoading(false);
+
+          //   // do nothing
+          //   return;
+          // }
+
           // set the puzzle state
           setPuzzleString(localPuzzleString);
           // update UI state
@@ -81,7 +94,7 @@ export default function BoardCard({ uuid }: { uuid: string | undefined }) {
         //if the uuid exists load the game, otherwise generate a new puzzles
         const data = uuid
           ? await gameService.getGame(uuid)
-          : await gameService.createNewGame();
+          : await gameService.createNewGame("EASY"); // keep the default as easy (normal mode)
 
         // set the puzzle state
         setPuzzleString(data.puzzleString);

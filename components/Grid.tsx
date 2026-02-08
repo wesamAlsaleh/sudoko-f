@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import Cell from "./Cell";
 import NumbersPad from "./NumbersPad";
 import { SudokuSolver } from "@/lib/sudokuSolver";
+import { gameService } from "@/service/gameService";
 
 export default function Grid({ puzzleString }: { puzzleString: string }) {
   // states to manage
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null); //  the selected cell (primarily for cell highlighting)
-  const [inputStatus, setInputStatus] = useState<boolean | null>(null); // instant feedback to the player
 
   // convert the puzzle string (81-char) into an array of number
   const initialCellsArray = puzzleString
@@ -53,7 +53,6 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
       );
 
       // update the UI states with the status
-      setInputStatus(isValid);
       setErrors((prevErrors) => {
         // clone the errors state
         const newErrorsState = [...prevErrors];
@@ -68,7 +67,7 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
       // update the array with the specific index with the new value
       cellsClone[selectedIndex] = value;
 
-      // TODO: store the array in the localstorage
+      // store the array in the localstorage
       localStorage.setItem("us", JSON.stringify(cellsClone));
 
       // return the new array to trigger a re-render of the board
@@ -93,7 +92,6 @@ export default function Grid({ puzzleString }: { puzzleString: string }) {
       const cellsClone = [...prev];
 
       // clean the UI
-      setInputStatus(null);
       setErrors((prevErrors) => {
         // clone the errors state
         const newErrorsState = [...prevErrors];

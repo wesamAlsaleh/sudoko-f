@@ -16,9 +16,12 @@ export const gameService = {
     return response.data;
   },
 
-  // TODO: Submit a solution
-  submitGame: async (id: string, board: number[]) => {
-    const response = await api.post(`/api/v1/sudoku/${id}/submit`, { board });
+  // Submit a solution
+  submitGame: async (uuid: string, playerSolution: string) => {
+    const response = await api.post(`/api/v1/sudoku/submit`, {
+      uuid: uuid,
+      playerSolution: playerSolution,
+    });
     return response.data;
   },
 };
