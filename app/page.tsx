@@ -20,12 +20,12 @@ export default async function Home({
       <Title />
 
       {/* TODO: Status Bar (Timer & Mistakes Counter) */}
-      <StatsBar />
+      {/* <StatsBar /> */}
 
       {/* Board Card + Numbers Pad */}
       <BoardCard uuid={id || undefined} />
 
-      {/* TODO: Controls (New Game & Hint) */}
+      {/* Controls (New Game & TODO: Hint) */}
       <Controls />
     </div>
   );

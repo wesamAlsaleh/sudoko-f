@@ -54,7 +54,7 @@ export default function Controls() {
   };
 
   return (
-    <div className="flex gap-2 items-center justify-center mt-4">
+    <div className="flex gap-2 items-center justify-center my-4">
       <Sheet>
         {/* Sheet opener button */}
         <SheetTrigger asChild>
@@ -148,11 +148,11 @@ export default function Controls() {
         </SheetContent>
       </Sheet>
 
-      {/* Hint button */}
-      <Button size="icon-lg" className="w-20">
+      {/* TODO: Hint button */}
+      {/* <Button size="icon-lg" className="w-20">
         <Lightbulb />
         <span className="font-semibold">Hint</span>
-      </Button>
+      </Button> */}
     </div>
   );
 }
